@@ -8,6 +8,7 @@ GameScene::~GameScene() {
 	safe_delete(sprite);
 	safe_delete(sphereModel);
 	safe_delete(sphere);
+	safe_delete(sphere2);
 	safe_delete(ground);
 }
 
@@ -50,6 +51,13 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input, Audio* audio) 
 	sphere->SetScale(sphereScale);
 	sphere->SetPosition(spherePos);
 	sphere->SetRotation(sphereRot);
+	spherePos2 = initPos2;
+	sphere2 = Object3d::Create(sphereModel);
+	sphere2->SetScale(sphereScale);
+	sphere2->SetPosition(spherePos2);
+	sphere2->SetRotation(sphereRot);
+
+	//sphereSpeed = 10.0f;
 
 	//MapChipの初期化
 	/*mapchip = new MapChip;
@@ -59,26 +67,21 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input, Audio* audio) 
 
 void GameScene::Update() {
 	// DirectX毎フレーム処理　ここから
-	camera->SetTarget(spherePos);
+	camera->SetTarget(XMFLOAT3(0, 0, 0));
 
-	//デバッグテキスト
 	if (input->PushKey(DIK_SPACE)) {
 		spherePos = initPos;
+		spherePos2 = initPos2;
 		time = 0.0f;
 	}
 
-	if (spherePos.y >= 15) {
-		time += 0.1f; 
-		spherePos.y -= fallSpeed * time * time / 2.0f;
-	}
-	else {
-		spherePos.y = 14.0f;
-		time = 0.0f;
-	}
+	time += 0.1f;
 
 	input->Update();
 	sphere->SetPosition(spherePos);
 	sphere->Update();
+	sphere2->SetPosition(spherePos2);
+	sphere2->Update();
 	ground->Update();
 	sky->Update();
 }
@@ -91,6 +94,7 @@ void GameScene::Draw() {
 	//3Dオブジェクト描画処理
 	Object3d::PreDraw(dxCommon->GetCmdList());
 	sphere->Draw();
+	sphere2->Draw();
 	ground->Draw();
 	sky->Draw();
 	Object3d::PostDraw();

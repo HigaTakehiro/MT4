@@ -66,6 +66,7 @@ private: //メンバ変数
 	Object3d* ground = nullptr;
 	Object3d* sky = nullptr;
 	Object3d* sphere = nullptr;
+	Object3d* sphere2 = nullptr;
 	Sprite* sprite = nullptr;
 
 	//マップチップ用変数
@@ -76,10 +77,12 @@ private: //メンバ変数
 
 	//ゲームシーン用変数
 	XMFLOAT3 spherePos = { 0, 0, 0 };
+	XMFLOAT3 spherePos2 = { 0, 0, 0 };
 	XMFLOAT3 sphereScale = { 0, 0, 0 };
 	XMFLOAT3 sphereRot = { 0, 0, 0 };
 
-	const XMFLOAT3 initPos = { 0, 1000, 0 };
+	const XMFLOAT3 initPos = { 500, 15, 0 };
+	const XMFLOAT3 initPos2 = { -500, 15, 0 };
 	const float fallSpeed = 9.8f;
 	float time = 0.0f;
 
